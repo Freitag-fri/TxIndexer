@@ -1,0 +1,70 @@
+# === Сборка ===
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+publish/
+*.nupkg
+*.snupkg
+
+# === Visual Studio ===
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# === Rider / JetBrains ===
+.idea/
+*.sln.iml
+
+# === VS Code ===
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# === Тесты и покрытие ===
+TestResults/
+[Tt]est[Rr]esult*/
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+
+# === NuGet ===
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+
+# === Секреты и локальные настройки ===
+appsettings.*.local.json
+*.local.json
+.env
+.env.*
+!.env.example
+
+# === Базы данных (локальные файлы) ===
+*.mdf
+*.ldf
+*.ndf
+*.db
+*.db-shm
+*.db-wal
+
+# === Docker ===
+docker-compose.override.yml
+
+# === ОС ===
+.DS_Store
+Thumbs.db
+desktop.ini

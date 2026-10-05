@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TxIndexer.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d80e4767351f22bdd941bb96396e64beaa68470")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e2a8f08effcef04947274b42aa9a792c336631e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TxIndexer.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TxIndexer.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
