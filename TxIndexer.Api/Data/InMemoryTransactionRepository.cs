@@ -14,7 +14,7 @@ namespace TxIndexer.Api.Data
             return Task.FromResult(_transactions.TryAdd(transaction.Hash, transaction));
         }
 
-        public Task<(IReadOnlyList<Transaction>, int)> GetPageTransactionsAsync(int page, int pageSize, CancellationToken ct)
+        public Task<(IReadOnlyList<Transaction> Items, int TotalCount)> GetPageTransactionsAsync(int page, int pageSize, CancellationToken ct)
         {
             IReadOnlyList<Transaction> items = _transactions
                 .OrderByDescending(t => t.Value.Timestamp)

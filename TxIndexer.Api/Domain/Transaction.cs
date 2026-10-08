@@ -4,13 +4,6 @@ using System.Transactions;
 
 namespace TxIndexer.Api.Domain
 {
-    public enum TransactionStatus
-    {
-        Pending = 0,
-        Confirmed = 1,
-        Failed = 2,
-    }
-
     public sealed class Transaction : IEquatable<Transaction>
 	{
         public string Hash { get; }
