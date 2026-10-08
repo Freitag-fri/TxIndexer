@@ -2,7 +2,7 @@
 using System.Net.NetworkInformation;
 using System.Transactions;
 
-namespace TxIndexer.Domain
+namespace TxIndexer.Api.Domain
 {
     public enum TransactionStatus
     {
