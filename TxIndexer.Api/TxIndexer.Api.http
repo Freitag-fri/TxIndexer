@@ -16,3 +16,6 @@ GET {{TxIndexer.Api_HostAddress}}/api/transactions/0xnope
 
 ###
 GET {{TxIndexer.Api_HostAddress}}/api/transactions?page=2&pageSize=2
+
+###
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?page=asd&pageSize=3
