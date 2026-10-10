@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using TxIndexer.Api.Data;
 using TxIndexer.Api.Domain;
 using TxIndexer.Api.Services;
@@ -69,6 +70,7 @@ await repository.AddTransactionAsync(new Transaction(
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
