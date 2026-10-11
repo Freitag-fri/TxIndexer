@@ -69,16 +69,15 @@ await repository.AddTransactionAsync(new Transaction(
     DateTimeOffset.UtcNow.AddMinutes(-7).ToUnixTimeSeconds(),
     TransactionStatus.Confirmed), CancellationToken.None);
 
-// Configure the HTTP request pipeline.
+app.UseExceptionHandler();
+
+app.UseStatusCodePages();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
-
-app.UseExceptionHandler();
-
-app.UseStatusCodePages();
 
 app.UseHttpsRedirection();
 
