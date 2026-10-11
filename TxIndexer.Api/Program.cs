@@ -1,6 +1,7 @@
 using Scalar.AspNetCore;
 using TxIndexer.Api.Data;
 using TxIndexer.Api.Domain;
+using TxIndexer.Api.Infrastructure;
 using TxIndexer.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 var app = builder.Build();
 
@@ -72,6 +75,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.UseExceptionHandler();
+
+app.UseStatusCodePages();
 
 app.UseHttpsRedirection();
 
