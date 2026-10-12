@@ -17,7 +17,7 @@ namespace TxIndexer.Api.Infrastructure
         {
             _logger.LogError(exception, "Unhandled exception for {Method} {Path}",
                 httpContext.Request.Method, httpContext.Request.Path);
-            httpContext.Response.StatusCode = 500;
+            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             var problemDetails = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,

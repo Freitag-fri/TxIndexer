@@ -16,9 +16,9 @@ namespace TxIndexer.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedResponse<TransactionResponse>>> GetPage([Range(1, int.MaxValue)] int page = 1, [Range(1, 100)] int pageSize = 30, CancellationToken ct = default)
+        public async Task<ActionResult<PagedResponse<TransactionResponse>>> GetPage([FromQuery] TransactionQuery query, CancellationToken ct = default)
         {
-            return await _transactionService.GetPageAsync(page, pageSize, ct);
+            return await _transactionService.GetPageAsync(query, ct);
         }
 
         [HttpGet("{hash}")]
