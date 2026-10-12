@@ -2,6 +2,8 @@
 using System.Collections.Concurrent;
 using TxIndexer.Api.Domain;
 
+
+
 namespace TxIndexer.Api.Data
 {
     public class InMemoryTransactionRepository : ITransactionRepository
@@ -17,23 +19,25 @@ namespace TxIndexer.Api.Data
             IEnumerable<Transaction> query = _transactions.Values;
 
             if (transactionFilter.Token is not null)
-                query = query.Where(t => t.Token == transactionFilter.Token);
+                query = query.Where(t => string.Equals(t.Token, transactionFilter.Token, StringComparison.OrdinalIgnoreCase));
             if (transactionFilter.FromBlock is not null)
                 query = query.Where(t => t.BlockNumber >= transactionFilter.FromBlock);
             if (transactionFilter.ToBlock is not null)
                 query = query.Where(t => t.BlockNumber <= transactionFilter.ToBlock);
             if (transactionFilter.Address is not null)
-                query = query.Where(t => t.From == transactionFilter.Address);
+                query = query.Where(t => string.Equals(t.From == transactionFilter.Address, StringComparison.OrdinalIgnoreCase) || string.Equals(t.To == transactionFilter.Address, StringComparison.OrdinalIgnoreCase));
             if (transactionFilter.Status is not null)
                 query = query.Where(t => t.Status == transactionFilter.Status);
 
+            query = query.ToList();
+            var transactionsCount = query.Count();
             IReadOnlyList<Transaction> items = query
                 .OrderByDescending(t => t.Timestamp)
                 .ThenBy(t => t.Hash)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            return Task.FromResult((items, _transactions.Count));
+            return Task.FromResult((items, transactionsCount));
         }
 
         public Task<Transaction?> GetTransactionByHashAsync(string transactionHash, CancellationToken ct)

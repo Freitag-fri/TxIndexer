@@ -19,7 +19,7 @@ namespace TxIndexer.Api.Contracts
                 yield return new ValidationResult
                 (
                     "FromBlock must be less than or equal to ToBlock",
-                    new[] {nameof(FromBlock), nameof(FromBlock) }
+                    new[] {nameof(FromBlock), nameof(ToBlock) }
                 );
         }
     }

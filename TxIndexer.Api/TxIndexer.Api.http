@@ -7,15 +7,29 @@ Accept: application/json
 GET {{TxIndexer.Api_HostAddress}}/api/transactions/0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22061
 Accept: application/json
 
-###
-GET {{TxIndexer.Api_HostAddress}}/api/transactions/
-Accept: application/json
+### Filter: token
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?token=USDC
 
-###
-GET {{TxIndexer.Api_HostAddress}}/api/transactions/0xnope
+### Filter: token, другой регистр
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?token=usdc
 
-###
-GET {{TxIndexer.Api_HostAddress}}/api/transactions?page=2&pageSize=2
+### Filter: address (должен находить и From, и To)
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae
 
-###
-GET {{TxIndexer.Api_HostAddress}}/api/transactions?page=asd&pageSize=3
+### Filter: address в верхнем регистре
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?address=0xDE0B295669A9FD93D5F28D9EC85E40F4CB697BAE
+
+### Filter: status (проверь, что totalCount = числу элементов)
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?status=Failed
+
+### Filter: диапазон блоков
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?fromBlock=21000002&toBlock=21000004
+
+### Filter: комбинация
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?token=USDT&status=Confirmed
+
+### 400: fromBlock > toBlock
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?fromBlock=100&toBlock=50
+
+### 400: неизвестный статус
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?status=Unknown
