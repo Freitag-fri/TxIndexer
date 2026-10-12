@@ -1,10 +1,5 @@
 ﻿//using System;
 using System.Collections.Concurrent;
-using System.Net;
-using TxIndexer.Api.Contracts;
-
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
 using TxIndexer.Api.Domain;
 
 namespace TxIndexer.Api.Data
