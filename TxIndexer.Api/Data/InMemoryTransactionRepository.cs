@@ -25,7 +25,7 @@ namespace TxIndexer.Api.Data
             if (transactionFilter.ToBlock is not null)
                 query = query.Where(t => t.BlockNumber <= transactionFilter.ToBlock);
             if (transactionFilter.Address is not null)
-                query = query.Where(t => string.Equals(t.From == transactionFilter.Address, StringComparison.OrdinalIgnoreCase) || string.Equals(t.To == transactionFilter.Address, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(t => string.Equals(t.From, transactionFilter.Address, StringComparison.OrdinalIgnoreCase) || string.Equals(t.To, transactionFilter.Address, StringComparison.OrdinalIgnoreCase));
             if (transactionFilter.Status is not null)
                 query = query.Where(t => t.Status == transactionFilter.Status);
 
