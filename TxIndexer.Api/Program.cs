@@ -30,16 +30,6 @@ await repository.AddTransactionAsync(new Transaction(
     TransactionStatus.Confirmed), CancellationToken.None);
 
 await repository.AddTransactionAsync(new Transaction(
-    "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060",
-    21_000_001,
-    "0x742d35cc6634c0532925a3b844bc454e4438f44e",
-    "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae",
-    125.50m,
-    "USDT",
-    DateTimeOffset.UtcNow.AddMinutes(-10).ToUnixTimeSeconds(),
-    TransactionStatus.Confirmed), CancellationToken.None);
-
-await repository.AddTransactionAsync(new Transaction(
     "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22061",
     21_000_002,
     "0x742d35cc6634c0532925a3b844bc454e4438f44e",
