@@ -13,12 +13,20 @@ namespace TxIndexer.Api.Services
             _repository = transactionRepository;
         }
 
-        public async Task<PagedResponse<TransactionResponse>> GetPageAsync(int page, int pageSize, CancellationToken ct)
+        public async Task<PagedResponse<TransactionResponse>> GetPageAsync(TransactionQuery transactionQuery, CancellationToken ct)
         {
-            var actualPage = Math.Max(page, 1);
-            var actualPageSize = Math.Clamp(pageSize, 1, MaxPageSize);
+            var actualPage = Math.Max(transactionQuery.Page, 1);
+            var actualPageSize = Math.Clamp(transactionQuery.PageSize, 1, MaxPageSize);
 
-            var (items, totalCount) = await _repository.GetPageTransactionsAsync(actualPage, actualPageSize, ct);
+            var transactionFilter = new TransactionFilter (
+                transactionQuery.Token,
+                transactionQuery.Address,
+                transactionQuery.FromBlock,
+                transactionQuery.ToBlock,
+                transactionQuery.Status
+            );
+
+            var (items, totalCount) = await _repository.GetPageTransactionsAsync(transactionFilter, actualPage, actualPageSize, ct);
             var responses = items.Select(n => ConvertTransactionToTransactionResponse(n)).ToList();
 
             return new PagedResponse<TransactionResponse>(responses, actualPage, actualPageSize, totalCount);
