@@ -6,7 +6,7 @@ namespace TxIndexer.Api.Infrastructure
     sealed class ActionTimingFilter : IAsyncActionFilter
     {
         private readonly ILogger<ActionTimingFilter> _logger;
-        private const int SlowActionThresholdMs = 500;
+        private const int SlowActionThresholdMs = 0;
 
         public ActionTimingFilter(ILogger<ActionTimingFilter> logger)
         {
@@ -19,7 +19,7 @@ namespace TxIndexer.Api.Infrastructure
 
             if(stopwatch.ElapsedMilliseconds > SlowActionThresholdMs)
             {
-                _logger.LogWarning($"Slow action {context.ActionDescriptor.DisplayName} took {stopwatch.ElapsedMilliseconds} ms");
+                _logger.LogWarning("Slow action {Action} took {ElapsedMs} ms", context.ActionDescriptor.DisplayName, stopwatch.ElapsedMilliseconds);
             }
         }
     }
