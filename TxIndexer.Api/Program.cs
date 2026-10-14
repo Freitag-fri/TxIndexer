@@ -14,6 +14,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddControllers(options => options.Filters.Add<ActionTimingFilter>());
 
 var app = builder.Build();
 
