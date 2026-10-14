@@ -6,7 +6,7 @@ namespace TxIndexer.Api.Infrastructure
     public sealed class ActionTimingFilter : IAsyncActionFilter
     {
         private readonly ILogger<ActionTimingFilter> _logger;
-        private const int SlowActionThresholdMs = 0;
+        private const int SlowActionThresholdMs = 500;
 
         public ActionTimingFilter(ILogger<ActionTimingFilter> logger)
         {
