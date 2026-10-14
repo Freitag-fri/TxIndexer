@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace TxIndexer.Api.Infrastructure
 {
-    sealed class ActionTimingFilter : IAsyncActionFilter
+    public sealed class ActionTimingFilter : IAsyncActionFilter
     {
         private readonly ILogger<ActionTimingFilter> _logger;
         private const int SlowActionThresholdMs = 0;
@@ -17,7 +17,7 @@ namespace TxIndexer.Api.Infrastructure
             var stopwatch = Stopwatch.StartNew();
             await next();
 
-            if(stopwatch.ElapsedMilliseconds > SlowActionThresholdMs)
+            if (stopwatch.ElapsedMilliseconds > SlowActionThresholdMs)
             {
                 _logger.LogWarning("Slow action {Action} took {ElapsedMs} ms", context.ActionDescriptor.DisplayName, stopwatch.ElapsedMilliseconds);
             }
