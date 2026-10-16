@@ -48,3 +48,6 @@ GET {{TxIndexer.Api_HostAddress}}/api/transactions?fromBlock=100&toBlock=50
 
 ### 400: неизвестный статус
 GET {{TxIndexer.Api_HostAddress}}/api/transactions?status=Unknown
+
+
+GET {{TxIndexer.Api_HostAddress}}/api/transactions/0x5C504ED432CB51138BCF09AA5E8A410DD4A1E204EF84BFED1BE16DFBA1B22060

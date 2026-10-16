@@ -18,7 +18,7 @@ namespace TxIndexer.Api.Domain
 
         public Transaction(string hash, long blockNumber, string from, string to, decimal amount, string token, long timestamp, TransactionStatus status)
 		{
-            Hash = hash;
+            Hash = hash.ToLowerInvariant();
             BlockNumber = blockNumber;
             From = from;
             To = to;
