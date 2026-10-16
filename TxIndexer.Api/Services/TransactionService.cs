@@ -34,7 +34,8 @@ namespace TxIndexer.Api.Services
 
         public async Task<TransactionResponse?> GetTransactionByHashAsync(string hash, CancellationToken ct)
         {
-            var transaction = await _repository.GetTransactionByHashAsync(hash, ct);
+            string lowerCaseHash = hash.ToLowerInvariant();
+            var transaction = await _repository.GetTransactionByHashAsync(lowerCaseHash, ct);
             if (transaction is null)
             {
                 return null;
