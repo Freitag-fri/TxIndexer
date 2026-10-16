@@ -42,7 +42,8 @@ namespace TxIndexer.Api.Data
 
         public Task<Transaction?> GetTransactionByHashAsync(string transactionHash, CancellationToken ct)
         {
-            _transactions.TryGetValue(transactionHash, out var transaction);
+            string loverCaseHash = transactionHash.ToLowerInvariant();
+            _transactions.TryGetValue(loverCaseHash, out var transaction);
             return Task.FromResult(transaction);
         }
 
