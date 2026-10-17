@@ -5,7 +5,7 @@ namespace TxIndexer.Api.Infrastructure
 {
     public class GlobalExceptionHandler : IExceptionHandler
     {
-        private ILogger<GlobalExceptionHandler> _logger;
+        private readonly ILogger<GlobalExceptionHandler> _logger;
         private readonly IProblemDetailsService _problemDetailsService;
         public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IProblemDetailsService problemDetailsService)
         {
@@ -16,14 +16,13 @@ namespace TxIndexer.Api.Infrastructure
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken ct)
         {
             _logger.LogError(exception, "Unhandled exception for {Method} {Path}",
-                httpContext.Request.Method, httpContext.Request.Path);
+            httpContext.Request.Method, httpContext.Request.Path);
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             var problemDetails = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An unexpected error occurred."
             };
-            //await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
             return await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
             {

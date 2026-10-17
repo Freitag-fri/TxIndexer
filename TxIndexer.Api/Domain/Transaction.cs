@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net.NetworkInformation;
-using System.Transactions;
-
-namespace TxIndexer.Api.Domain
+﻿namespace TxIndexer.Api.Domain
 {
     public sealed class Transaction : IEquatable<Transaction>
 	{

@@ -1,14 +1,12 @@
-﻿//using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using TxIndexer.Api.Domain;
-
 
 
 namespace TxIndexer.Api.Data
 {
     public class InMemoryTransactionRepository : ITransactionRepository
     {
-        ConcurrentDictionary<string, Transaction> _transactions = new();
+        private readonly ConcurrentDictionary<string, Transaction> _transactions = new();
         public Task<bool> AddTransactionAsync(Transaction transaction, CancellationToken ct)
         {
             return Task.FromResult(_transactions.TryAdd(transaction.Hash, transaction));
