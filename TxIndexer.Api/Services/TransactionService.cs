@@ -6,7 +6,7 @@ namespace TxIndexer.Api.Services
 {
     public class TransactionService : ITransactionService
     {
-        private const int MaxPageSize = 100;
+        public const int MaxPageSize = 100;
         private readonly ITransactionRepository _repository;
         public TransactionService(ITransactionRepository transactionRepository)
         {

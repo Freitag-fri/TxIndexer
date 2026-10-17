@@ -49,5 +49,11 @@ GET {{TxIndexer.Api_HostAddress}}/api/transactions?fromBlock=100&toBlock=50
 ### 400: неизвестный статус
 GET {{TxIndexer.Api_HostAddress}}/api/transactions?status=Unknown
 
-###
+### 200: хеш в верхнем регистре
 GET {{TxIndexer.Api_HostAddress}}/api/transactions/0x5C504ED432CB51138BCF09AA5E8A410DD4A1E204EF84BFED1BE16DFBA1B22060
+
+### 404: хеш правильного формата, которого нет
+GET {{TxIndexer.Api_HostAddress}}/api/transactions/0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22069
+
+### 400: pageSize больше максимума
+GET {{TxIndexer.Api_HostAddress}}/api/transactions?pageSize=1000
