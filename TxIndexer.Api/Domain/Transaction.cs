@@ -2,13 +2,14 @@
 {
     public sealed class Transaction : IEquatable<Transaction>
 	{
-        public string Hash { get; }
-		public long BlockNumber { get; }
-        public string From { get; }
-        public string To { get; }
-        public decimal Amount { get; }
-        public string Token { get; }
-        public long Timestamp { get; }
+        public long Id { get; private set; }
+        public string Hash { get; private set; }
+		public long BlockNumber { get; private set; }
+        public string From { get; private set; }
+        public string To { get; private set; }
+        public decimal Amount { get; private set; }
+        public string Token { get; private set; }
+        public long Timestamp { get; private set; }
         public TransactionStatus Status { get; private set; }
 
 
