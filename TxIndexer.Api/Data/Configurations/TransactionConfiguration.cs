@@ -14,9 +14,9 @@ namespace TxIndexer.Api.Data.Configurations
             builder.HasIndex(t => t.Hash)
                 .IsUnique();
 
-                builder.Property(t => t.From)
-                    .IsRequired()
-                    .HasMaxLength(42);
+            builder.Property(t => t.From)
+                .IsRequired()
+                .HasMaxLength(42);
 
             builder.Property(t => t.To)
                 .IsRequired()
