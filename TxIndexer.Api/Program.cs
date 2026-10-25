@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using TxIndexer.Api.Data;
 using TxIndexer.Api.Domain;
@@ -14,6 +15,9 @@ builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddControllers(options => options.Filters.Add<ActionTimingFilter>());
+var connectionString = builder.Configuration.GetConnectionString("Default")
+    ?? throw new InvalidOperationException("Connection string 'Default' is not configured.");
+builder.Services.AddDbContext<TxIndexerDbContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
