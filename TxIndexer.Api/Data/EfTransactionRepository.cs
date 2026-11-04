@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Reflection.Metadata.Ecma335;
-using TxIndexer.Api.Domain;
+﻿using TxIndexer.Api.Domain;
 using Microsoft.EntityFrameworkCore;
 
 
