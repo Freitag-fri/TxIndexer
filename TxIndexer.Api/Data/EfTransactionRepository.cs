@@ -25,31 +25,28 @@ namespace TxIndexer.Api.Data
             return true;
         }
 
-        public Task<(IReadOnlyList<Transaction> Items, int TotalCount)> GetPageTransactionsAsync(TransactionFilter transactionFilter, int page, int pageSize, CancellationToken ct)
+        public async Task<(IReadOnlyList<Transaction> Items, int TotalCount)> GetPageTransactionsAsync(TransactionFilter transactionFilter, int page, int pageSize, CancellationToken ct)
         {
-            return null;
-            //IEnumerable<Transaction> query = _transactions.Values;
+            IQueryable<Transaction> query = _txIndexerDbContext.Transactions.AsNoTracking();
+            if (transactionFilter.Token is not null)
+                query = query.Where(t => t.Token == transactionFilter.Token);
+            if (transactionFilter.FromBlock is not null)
+                query = query.Where(t => t.BlockNumber >= transactionFilter.FromBlock);
+            if (transactionFilter.ToBlock is not null)
+                query = query.Where(t => t.BlockNumber <= transactionFilter.ToBlock);
+            if (transactionFilter.Address is not null)
+                query = query.Where(t => t.From == transactionFilter.Address || t.To == transactionFilter.Address);
+            if (transactionFilter.Status is not null)
+                query = query.Where(t => t.Status == transactionFilter.Status);
 
-            //if (transactionFilter.Token is not null)
-            //    query = query.Where(t => string.Equals(t.Token, transactionFilter.Token, StringComparison.OrdinalIgnoreCase));
-            //if (transactionFilter.FromBlock is not null)
-            //    query = query.Where(t => t.BlockNumber >= transactionFilter.FromBlock);
-            //if (transactionFilter.ToBlock is not null)
-            //    query = query.Where(t => t.BlockNumber <= transactionFilter.ToBlock);
-            //if (transactionFilter.Address is not null)
-            //    query = query.Where(t => string.Equals(t.From, transactionFilter.Address, StringComparison.OrdinalIgnoreCase) || string.Equals(t.To, transactionFilter.Address, StringComparison.OrdinalIgnoreCase));
-            //if (transactionFilter.Status is not null)
-            //    query = query.Where(t => t.Status == transactionFilter.Status);
-
-            //query = query.ToList();
-            //var transactionsCount = query.Count();
-            //IReadOnlyList<Transaction> items = query
-            //    .OrderByDescending(t => t.Timestamp)
-            //    .ThenBy(t => t.Hash)
-            //    .Skip((page - 1) * pageSize)
-            //    .Take(pageSize)
-            //    .ToList();
-            //return Task.FromResult((items, transactionsCount));
+            var totalCount = await query.CountAsync(ct);
+            var items = await query
+                .OrderByDescending(t => t.Timestamp)
+                .ThenBy(t => t.Hash)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(ct);
+            return (items, totalCount);
         }
 
         public async Task<Transaction?> GetTransactionByHashAsync(string transactionHash, CancellationToken ct)
@@ -57,14 +54,17 @@ namespace TxIndexer.Api.Data
             return await _txIndexerDbContext.Transactions.SingleOrDefaultAsync(t => t.Hash == transactionHash, ct);
         }
 
-        public async Task<bool> UpdateTransactionAsync(Transaction transaction, CancellationToken ct)
+        public async Task<bool> UpdateTransactionStatusAsync(Transaction transaction, CancellationToken ct)
         {
-            //if(_transactions.TryGetValue(transaction.Hash, out var existingTransaction))
-            //{
-            //    return Task.FromResult(_transactions.TryUpdate(transaction.Hash, transaction, existingTransaction));
-            //}
-            //return Task.FromResult(false);
-            return false;
+            var existingTransaction = await GetTransactionByHashAsync(transaction.Hash, ct);
+            if (existingTransaction is null)
+            {
+                return false;
+            }
+
+            _txIndexerDbContext.Transactions.Entry(existingTransaction).Property(t => t.Status).CurrentValue = transaction.Status;
+            await _txIndexerDbContext.SaveChangesAsync(ct);
+            return true;
         }
     }
 }

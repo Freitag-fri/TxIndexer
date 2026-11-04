@@ -21,7 +21,6 @@ builder.Services.AddScoped<ITransactionRepository, EfTransactionRepository>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddControllers(options => options.Filters.Add<ActionTimingFilter>());
 
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

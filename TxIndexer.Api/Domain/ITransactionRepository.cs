@@ -7,6 +7,6 @@
         public Task<(IReadOnlyList<Transaction> Items, int TotalCount)> GetPageTransactionsAsync(TransactionFilter transactionFilter, int page, int pageSize, CancellationToken ct);
 
         public Task<bool> AddTransactionAsync(Transaction transaction, CancellationToken ct);
-        public Task<bool> UpdateTransactionAsync(Transaction transaction, CancellationToken ct);
+        public Task<bool> UpdateTransactionStatusAsync(Transaction transaction, CancellationToken ct);
     }
 }

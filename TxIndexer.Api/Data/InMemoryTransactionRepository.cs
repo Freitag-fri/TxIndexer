@@ -44,7 +44,7 @@ namespace TxIndexer.Api.Data
             return Task.FromResult(transaction);
         }
 
-        public Task<bool> UpdateTransactionAsync(Transaction transaction, CancellationToken ct)
+        public Task<bool> UpdateTransactionStatusAsync(Transaction transaction, CancellationToken ct)
         {
             if(_transactions.TryGetValue(transaction.Hash, out var existingTransaction))
             {
